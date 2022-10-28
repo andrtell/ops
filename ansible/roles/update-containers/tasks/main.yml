@@ -1,0 +1,6 @@
+---
+- name: Podman auto-update
+  command: 'podman auto-update'
+
+- name: Podman image prune 
+  command: 'podman image prune -af'

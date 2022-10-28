@@ -1,0 +1,5 @@
+- name: Update firewall
+  hosts: web builder registry
+  remote_user: root
+  roles:
+    - firewall

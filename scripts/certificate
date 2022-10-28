@@ -1,0 +1,90 @@
+#!/bin/env bash
+
+set -e
+
+deps() {
+  if ! type -p $1 &> /dev/null 
+  then
+      echo "'$1' must be installed to run this script."
+      exit 126
+  fi
+}
+
+deps "podman"
+deps "ansible-vault"
+
+if [ -z ${ANSIBLE_VAULT_PASSWORD_FILE+x} ]; then 
+  echo "Environment variable ANSIBLE_VAULT_PASSWORD_FILE must be set"
+fi
+
+help() {
+  cat <<_EOF
+    Create a certificate for [tell.nu, *.tell.nu]
+
+    usage: 
+      
+      cert    <command> [<arg> ...]
+
+    commands:
+
+      create  <digitalocean credentials-file>   create ansible-vault encrypted certificate files
+
+      help                                      print help
+_EOF
+}
+
+(( $# < 1 )) && {
+    help
+    exit 126
+}
+
+TMP_DIR=/tmp/certbot/volumes
+
+EXPECTED_KEYS_PATH=$TMP_DIR/etc/letsencrypt/live/tell.nu/
+
+case "$1" in
+    create)
+        (( $# != 2 )) && {
+            help
+            exit 126
+        }
+
+        CREDENTIALS_FILE=$2
+
+        mkdir -p $TMP_DIR/etc/letsencrypt
+        mkdir -p $TMP_DIR/var/lib/letsencrypt
+
+        podman  run -it --rm --name certbot \
+                -v "/tmp/certbot/volumes/etc/letsencrypt:/etc/letsencrypt" \
+                -v "/tmp/certbot/volumes/var/lib/letsencrypt:/var/lib/letsencrypt" \
+                -v "$CREDENTIALS_FILE:/do.ini" \
+                certbot/dns-digitalocean certonly \
+                    --dns-digitalocean \
+                    --dns-digitalocean-credentials /do.ini \
+                    -m 'hostmaster@tell.nu' \
+                    --agree-tos \
+                    -n \
+                    -d tell.nu \
+                    -d '*.tell.nu'
+          
+        if [ ! -d $EXPECTED_KEYS_PATH ]; then
+          echo "can not find keys!"
+          exit 126;
+        fi
+
+        cp $EXPECTED_KEYS_PATH/fullchain.pem .
+        cp $EXPECTED_KEYS_PATH/privkey.pem .
+
+        ansible-vault encrypt ./fullchain.pem
+        ansible-vault encrypt ./privkey.pem
+
+        rm -rf $TMP_DIR
+        ;;
+    help)
+        help
+        ;;
+    *)
+        help
+        exit 126
+        ;;
+esac

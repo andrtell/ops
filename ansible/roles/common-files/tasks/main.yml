@@ -1,0 +1,67 @@
+---
+- name: Copy /etc/hosts
+  copy:
+    src: hosts
+    dest: /etc/hosts
+    mode: '0644'
+
+- name: Copy /root/.docker/config.json
+  copy:
+    src: config.json
+    dest: /root/.docker/
+
+- name: Copy /home/worker/.docker/config.json
+  copy:
+    src: config.json
+    dest: /home/worker/.docker/
+    owner: worker
+    group: worker
+
+- name: Copy remote ssh authorized-keys from root to worker
+  copy:
+    remote_src: true
+    src: /root/.ssh/authorized_keys
+    dest: /home/worker/.ssh/
+    owner: worker
+    group: worker
+
+- name: Copy script ectl
+  copy:
+    src: ectl
+    dest: /home/worker/
+    owner: worker
+    group: worker
+    mode: '0755'
+
+- name: Copy /cert/fullchain.pem
+  copy:
+    src: fullchain.pem
+    dest: /cert/
+
+- name: Copy /cert/privkey.pem
+  copy:
+    src: privkey.pem
+    dest: /cert/
+
+- name: /cert permissions
+  file:
+    path: /cert
+    state: directory
+    mode: 0755
+
+- name: /cert/privkey.pem permissions 
+  file:
+    path: /cert/privkey.pem
+    group: worker
+    mode: 0640
+
+- name: Copy /etc/sysctl.d/999-ports.conf
+  copy:
+    src: 999-ports.conf
+    dest: /etc/sysctl.d/
+    owner: root
+    group: root
+
+- name: Reboot (999-ports.conf)
+  reboot:
+  when: not skip_reboot

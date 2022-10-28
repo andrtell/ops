@@ -1,0 +1,10 @@
+---
+- name: Create user worker
+  user:
+    name: worker
+    uid: '{{ worker_uid }}'
+    shell: /bin/bash
+    password: '!'
+
+- name: loginctl enable-linger worker
+  command: loginctl enable-linger worker

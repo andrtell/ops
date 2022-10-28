@@ -1,0 +1,7 @@
+#!/bin/env bash
+podman run --replace -it --name gitallsecrets \
+  abhartiya/tools_gitallsecrets \
+  -user andrtell \
+  -token ${GITHUB_ACCESS_TOKEN}
+  
+podman cp gitallsecrets:/root/results.txt $1

@@ -1,0 +1,69 @@
+#!/bin/env bash
+
+deps() {
+  if ! type -p $1 &> /dev/null 
+  then
+      echo "'$1' must be installed to run this script."
+      exit 126
+  fi
+}
+
+deps "ansible-playbook"
+
+help() {
+  cat <<_EOF
+    Connect to remote hosts from the ansible inventory
+
+    usage: 
+      
+      remote  <command> [<arg> ...]
+
+    commands:
+      ssh     <user>@<host-name>    ssh into ansible host (i.e web01)
+
+      iex     <host-name>           start iex prompt at host 
+
+      help                          print help
+_EOF
+}
+
+(( $# < 1 )) && {
+    help
+    exit 126
+}
+
+function ansible_host_ip() {
+  cd ansible && ansible-inventory --host $1 | jq -r '.ansible_host'
+}
+
+case "$1" in
+    ssh)
+        (( $# < 2 )) && {
+            help
+            exit 126
+        }
+        IFS='@'
+        read -ra arr <<< "$2"
+        USER="${arr[0]}"
+        HOST="${arr[1]}"
+        IP="$(ansible_host_ip $HOST)"
+        ssh $USER@$IP
+        ;;
+    iex)
+        (( $# < 2 )) && {
+            help
+            exit 126
+        }
+        HOST=$2
+        IP="$(ansible_host_ip $HOST)"
+        ssh worker@$IP -t './ectl remote'
+        ;;
+    help)
+        help
+        ;;
+    *)
+        help
+        exit 126
+        ;;
+esac
+

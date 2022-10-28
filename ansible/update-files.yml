@@ -1,0 +1,8 @@
+---
+- name: Update files
+  hosts: web builder registry
+  remote_user: root
+  vars:
+    skip_reboot: true
+  roles:
+    - common-files

@@ -1,0 +1,8 @@
+[web]
+web01 ansible_host=178.62.230.239
+
+[registry]
+registry01 ansible_host=188.166.98.178
+
+[builder]
+builder01 ansible_host=64.225.74.61

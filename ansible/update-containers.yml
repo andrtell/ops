@@ -1,0 +1,6 @@
+---
+- name: Update containers
+  hosts: web builder
+  remote_user: worker
+  roles:
+    - update-containers

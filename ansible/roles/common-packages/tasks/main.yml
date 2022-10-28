@@ -1,0 +1,16 @@
+---
+- name: Update packages
+  apt:
+    update_cache: yes
+
+- name: Upgrade packages
+  apt:
+    upgrade: yes
+  notify: reboot
+
+- name: Install required packages
+  apt:
+    name: 
+      - podman 
+      - unattended-upgrades
+    state: latest

@@ -1,0 +1,33 @@
+---
+- name: User service dir
+  file: 
+    path: /home/worker/.config/systemd/user
+    state: directory
+    owner: worker
+    group: worker
+
+- name: Copy web service file
+  template:
+    src: web.service.j2
+    dest: /home/worker/.config/systemd/user/web.service
+    owner: worker
+    group: worker
+
+- name: Start & enable web service
+  remote_user: worker
+  systemd:
+    daemon_reload: true
+    enabled: true
+    name: web
+    scope: user
+    state: restarted
+  environment:
+    XDG_RUNTIME_DIR: '/run/user/{{ worker_uid }}'
+
+# - name: Ectl script
+#   template:
+#     src: ectl.j2
+#     dest: /home/worker/ectl
+#     owner: worker
+#     group: worker
+#     mode: '0744'

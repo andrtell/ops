@@ -1,0 +1,50 @@
+---
+- name: Mount point /mnt/registry
+  file:
+    path: /mnt/registry
+    state: directory
+
+- name: Do mount volume /mnt/registry
+  ansible.posix.mount:
+    path: /mnt/registry
+    src: LABEL={{ registry_volume_label }}
+    opts: defaults,nofail,discard,noatime
+    fstype: ext4
+    boot: true
+    state: mounted
+
+- name: Chown /mnt/registry
+  command: 'chown -R worker:worker /mnt/registry'
+
+- name: Copy /auth/htpasswd
+  copy:
+    src: htpasswd
+    dest: /auth/
+    owner: root
+    group: worker
+    mode: '0440'
+
+- name: User service dir
+  file:
+    path: /home/worker/.config/systemd/user
+    state: directory
+    owner: worker
+    group: worker
+
+- name: Copy registry service file
+  template:
+    src: registry.service.j2
+    dest: /home/worker/.config/systemd/user/registry.service
+    owner: worker
+    group: worker
+
+- name: Start & enable web service
+  remote_user: worker
+  systemd:
+    daemon_reload: true
+    enabled: true
+    name: registry
+    scope: user
+    state: restarted
+  environment:
+    XDG_RUNTIME_DIR: '/run/user/{{ worker_uid }}'
