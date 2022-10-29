@@ -20,6 +20,8 @@ ExecStart=/usr/bin/podman run \
   -d \
   -p 443:443 \
   -p 80:80 \
+  -p {{ ansible_eth1.ipv4.address }}:4369:4369 \
+  -p {{ ansible_eth1.ipv4.address }}:9000-9010:9000-9010 \
   --label io.containers.autoupdate=registry \
   -v /cert/fullchain.pem:/cert/fullchain.pem:ro \
   -v /cert/privkey.pem:/cert/privkey.pem:ro \
@@ -29,6 +31,8 @@ ExecStart=/usr/bin/podman run \
   -e 'LOGFLARE_SOURCE_ID={{ builder_logflare_source_id }}' \
   -e 'DATABASE_URL={{ database_url }}' \
   -e 'SECRET_KEY_BASE={{ builder_phx_secret }}' \
+  -e 'RELEASE_COOKIE={{ builder_release_cookie }}' \
+  -e 'RELEASE_NAME=node@{{ inventory_hostname }}' \
   {{ builder_container_registry }}/{{ builder_container_tag }}
 ExecStop=/usr/bin/podman stop --ignore --cidfile=%t/%n.ctr-id
 ExecStopPost=/usr/bin/podman rm -f --ignore --cidfile=%t/%n.ctr-id
