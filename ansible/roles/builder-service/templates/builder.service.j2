@@ -27,6 +27,7 @@ ExecStart=/usr/bin/podman run \
   -e 'SSL_CERT_PATH=/cert/fullchain.pem' \
   -e 'LOGFLARE_API_KEY={{ builder_logflare_api_key }}' \
   -e 'LOGFLARE_SOURCE_ID={{ builder_logflare_source_id }}' \
+  -e 'DATABASE_URL={{ database_url }}' \
   -e 'SECRET_KEY_BASE={{ builder_phx_secret }}' \
   {{ builder_container_registry }}/{{ builder_container_tag }}
 ExecStop=/usr/bin/podman stop --ignore --cidfile=%t/%n.ctr-id
