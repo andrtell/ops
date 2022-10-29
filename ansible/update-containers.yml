@@ -4,3 +4,12 @@
   remote_user: worker
   roles:
     - update-containers
+
+- name: Migrate databases
+  hosts: builder
+  remote_user: worker
+
+  tasks:
+    - name: Migrate builder_prod
+      command: ./ectl migrate
+
