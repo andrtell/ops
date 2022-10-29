@@ -16,11 +16,13 @@ help() {
 
     usage: 
       
-      ectl <command> [<arg> ...]
+      ectl    <command>   [<arg> ...]
 
     commands:
 
-      iex         start a remote iex prompt
+      iex         start a remote prompt
+      
+      migrate     run migrations
 
       help        print help
 _EOF
@@ -32,8 +34,11 @@ _EOF
 }
 
 case "$1" in
-    remote)
-        podman exec -it service bin/tell remote
+    iex)
+        podman exec -it service bin/app remote
+        ;;
+    migrate)
+        podman exec -it service bin/migrate
         ;;
     help)
         help

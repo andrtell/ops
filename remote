@@ -16,14 +16,16 @@ help() {
 
     usage: 
       
-      remote  <command> [<arg> ...]
+      remote    <command> [<arg> ...]
 
     commands:
-      ssh     <user>@<host-name>    ssh into ansible host (i.e web01)
+      ssh       <user>@<host-name>    ssh into ansible host (i.e web01)
 
-      iex     <host-name>           start iex prompt at host 
+      iex       <host-name>           start iex prompt at host 
 
-      help                          print help
+      migrate   <host-name>           run db migrations on host
+
+      help                            print help
 _EOF
 }
 
@@ -56,7 +58,16 @@ case "$1" in
         }
         HOST=$2
         IP="$(ansible_host_ip $HOST)"
-        ssh worker@$IP -t './ectl remote'
+        ssh worker@$IP -t './ectl iex'
+        ;;
+    migrate)
+        (( $# < 2 )) && {
+            help
+            exit 126
+        }
+        HOST=$2
+        IP="$(ansible_host_ip $HOST)"
+        ssh worker@$IP -t './ectl migrate'
         ;;
     help)
         help
