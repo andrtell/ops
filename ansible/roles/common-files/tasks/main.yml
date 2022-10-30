@@ -10,7 +10,7 @@
     dest: /home/worker/.docker/
     owner: worker
     group: worker
-    chmod: 0440
+    mode: 0440
 
 - name: Copy /cert/fullchain.pem
   copy:
