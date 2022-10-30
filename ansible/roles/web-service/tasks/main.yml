@@ -23,11 +23,3 @@
     state: restarted
   environment:
     XDG_RUNTIME_DIR: '/run/user/{{ worker_uid }}'
-
-# - name: Ectl script
-#   template:
-#     src: ectl.j2
-#     dest: /home/worker/ectl
-#     owner: worker
-#     group: worker
-#     mode: '0744'

@@ -1,13 +1,23 @@
 resource "local_file" "inventory" {
   content = <<_EOT
+builder01   ansible_host=${digitalocean_droplet.builder01.ipv4_address}
+registry01  ansible_host=${digitalocean_droplet.registry01.ipv4_address}
+web01       ansible_host=${digitalocean_droplet.web01.ipv4_address}
+
 [web]
-web01 ansible_host=${digitalocean_droplet.web01.ipv4_address}
+web01
 
 [registry]
-registry01 ansible_host=${digitalocean_droplet.registry01.ipv4_address}
+registry01
 
 [builder]
-builder01 ansible_host=${digitalocean_droplet.builder01.ipv4_address}
+builder01
+
+[terraform]
+web01
+registry01
+builder01
+
 _EOT
   filename = "../ansible/inventory"
   file_permission = "0644"
@@ -21,6 +31,15 @@ ${digitalocean_droplet.web01.ipv4_address_private} web01
 ${digitalocean_droplet.registry01.ipv4_address_private} registry01
 ${digitalocean_droplet.builder01.ipv4_address_private} builder01
 EOT
-  filename = "../ansible/roles/common-files/files/hosts"
+  filename = "../ansible/roles/terraform/files/hosts"
+  file_permission = "0644"
+}
+
+resource "local_file" "terraform_group_vars" {
+  content = <<EOT
+---
+private_vpc_ip_range: ${digitalocean_vpc.tellnet.ip_range}
+EOT
+  filename = "../ansible/group_vars/terraform.yml"
   file_permission = "0644"
 }

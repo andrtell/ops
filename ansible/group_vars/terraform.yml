@@ -1,0 +1,2 @@
+---
+private_vpc_ip_range: 10.110.16.0/20

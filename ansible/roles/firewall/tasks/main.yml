@@ -17,7 +17,7 @@
 - name: Allow access on private network
   community.general.ufw:
     rule: allow
-    src: 10.110.16.0/20
+    src: '{{ private_vpc_ip_range }}'
 
 - name: enable UFW
   community.general.ufw:
