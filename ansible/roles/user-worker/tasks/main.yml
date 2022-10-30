@@ -1,9 +1,34 @@
 ---
+- name: Create container group
+  group:
+    name: container
+    gid: '{{ container_uid }}'
+    state: present
+
+- name: Create worker group
+  group:
+    name: worker
+    gid: '{{ worker_uid }}'
+    state: present
+
+- name: Create user container
+  user:
+    name: container
+    uid: '{{ container_uid }}'
+    shell: /bin/false
+    home: /dev/null
+    groups:
+      - container
+    password: '!'
+
 - name: Create user worker
   user:
     name: worker
     uid: '{{ worker_uid }}'
     shell: /bin/bash
+    groups:
+      - worker
+      - container
     password: '!'
 
 - name: loginctl enable-linger worker

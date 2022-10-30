@@ -10,16 +10,23 @@
     dest: /home/worker/.docker/
     owner: worker
     group: worker
+    chmod: 0440
 
 - name: Copy /cert/fullchain.pem
   copy:
     src: fullchain.pem
     dest: /cert/
+    owner: worker
+    group: container
+    mode: 0440
 
 - name: Copy /cert/privkey.pem
   copy:
     src: privkey.pem
     dest: /cert/
+    owner: worker
+    group: container
+    mode: 0440
 
 - name: /cert permissions
   file:
@@ -27,18 +34,10 @@
     state: directory
     mode: 0755
 
-- name: /cert/privkey.pem permissions 
-  file:
-    path: /cert/privkey.pem
-    group: worker
-    mode: 0640
-
 - name: Copy /etc/sysctl.d/999-ports.conf
   copy:
     src: 999-ports.conf
     dest: /etc/sysctl.d/
-    owner: root
-    group: root
 
 - name: Reboot (999-ports.conf)
   reboot:

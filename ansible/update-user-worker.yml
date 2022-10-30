@@ -1,0 +1,6 @@
+---
+- name: Update ssh
+  hosts: builder registry web
+  remote_user: root
+  roles:
+    - user-worker
