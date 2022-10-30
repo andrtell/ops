@@ -23,6 +23,8 @@ help() {
 
       worker    <host-alias>    ssh into ansible host as worker
 
+      container <host-alias>    ssh into ansible host container
+
       iex       <host-alias>    start iex prompt at host 
 
       migrate   <host-alias>    run db migrations on host
@@ -60,6 +62,16 @@ case "$1" in
         HOST=$2
         IP="$(ansible_host_ip $HOST)"
         ssh root@$IP -t "su - worker"
+        ;;
+    container)
+        (( $# < 2 )) && {
+            help
+            exit 126
+        }
+        IFS='@'
+        HOST=$2
+        IP="$(ansible_host_ip $HOST)"
+        ssh root@$IP -t "su - worker bash -c 'podman exec -it service bash'"
         ;;
     iex)
         (( $# < 2 )) && {
