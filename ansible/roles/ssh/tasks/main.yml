@@ -37,6 +37,3 @@
     owner: worker
     group: worker
     mode: 0640
-
-- name: Reboot
-  ansible.builtin.reboot:

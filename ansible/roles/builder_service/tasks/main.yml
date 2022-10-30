@@ -27,7 +27,7 @@
   environment:
     XDG_RUNTIME_DIR: /run/user/{{ worker_uid }}
 
-- name: Migrate database
+- name: Migrate builder database
   become: true
   become_user: worker
   changed_when: false

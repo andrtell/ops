@@ -16,7 +16,7 @@
 - name: Copy /cert/fullchain.pem
   ansible.builtin.copy:
     src: fullchain.pem
-    dest: /cert/
+    dest: /home/worker/cert/
     owner: worker
     group: container
     mode: 0440
@@ -24,23 +24,21 @@
 - name: Copy /cert/privkey.pem
   ansible.builtin.copy:
     src: privkey.pem
-    dest: /cert/
+    dest: /home/worker/cert/
     owner: worker
     group: container
     mode: 0440
 
 - name: /cert permissions
   ansible.builtin.file:
-    path: /cert
+    path: /home/worker/cert
     state: directory
     mode: 0755
 
-- name: Copy /etc/sysctl.d/999-ports.conf
+- name: Copy script ectl
   ansible.builtin.copy:
-    src: 999-ports.conf
-    dest: /etc/sysctl.d/
-    mode: 0644
-
-- name: Reboot (999-ports.conf)
-  ansible.builtin.reboot:
-  when: not skip_reboot
+    src: ectl
+    dest: /home/worker/
+    owner: worker
+    group: worker
+    mode: 0740

@@ -18,14 +18,14 @@ ExecStart=/usr/bin/podman run \
   --replace \
   --name service \
   -d \
-  -p 443:5000 \
-  -v '/auth/htpasswd:/auth/htpasswd:ro' \
+  -p 4430:5000 \
+  -v '/home/worker/htpasswd:/auth/htpasswd:ro' \
   -v '/mnt/registry:/var/lib/registry' \
   -e "REGISTRY_AUTH=htpasswd" \
   -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
   -e "REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd" \
-  -v /cert/fullchain.pem:/cert/fullchain.pem:ro \
-  -v /cert/privkey.pem:/cert/privkey.pem:ro \
+  -v /home/worker/cert/fullchain.pem:/cert/fullchain.pem:ro \
+  -v /home/worker/cert/privkey.pem:/cert/privkey.pem:ro \
   -e "REGISTRY_HTTP_TLS_CERTIFICATE=/cert/fullchain.pem" \
   -e "REGISTRY_HTTP_TLS_KEY=/cert/privkey.pem" \
   registry:2

@@ -6,4 +6,3 @@
     skip_reboot: true
   roles:
     - common_files
-    - worker_files

@@ -6,7 +6,7 @@
   roles:
     - update_containers
 
-- name: Migrate databases
+- name: Migrate builder database
   hosts: builder
   remote_user: root
   become: true

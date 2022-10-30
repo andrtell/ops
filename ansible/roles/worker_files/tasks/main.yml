@@ -1,8 +1,0 @@
----
-- name: Copy script ectl
-  ansible.builtin.copy:
-    src: ectl
-    dest: /home/worker/
-    owner: worker
-    group: worker
-    mode: "0755"

@@ -1,23 +1,62 @@
 ---
-- name: Allow access on port 22
+- name: Allow access to SSH
   community.general.ufw:
     rule: allow
-    port: "22"
+    port: ssh
 
-- name: Allow access on port 443
+- name: Allow access to HTTPS
   community.general.ufw:
     rule: allow
-    port: "443"
+    port: https
 
-- name: Allow access on port 80
+- name: Allow access to port 4430
   community.general.ufw:
     rule: allow
-    port: "80"
+    port: 4430
 
-- name: Allow access on private network
+- name: Allow access to HTTP
+  community.general.ufw:
+    rule: allow
+    port: http
+
+- name: Allow access to port 8000
+  community.general.ufw:
+    rule: allow
+    port: 8000
+
+- name: Allow all traffic on private network
   community.general.ufw:
     rule: allow
     src: "{{ private_vpc_ip_range }}"
+
+# - name: "Allow IP forward IPv4 "
+#   ansible.builtin.replace:
+#     path: /etc/ufw/sysctl.conf
+#     regexp: '#net/ipv4/ip_forward=1'
+#     replace: 'net/ipv4/ip_forward=1'
+
+# - name: "Allow IP forward IPv6 I"
+#   ansible.builtin.replace:
+#     path: /etc/ufw/sysctl.conf
+#     regexp: '#net/ipv6/conf/default/forwarding=1'
+#     replace: 'net/ipv6/conf/default/forwarding=1'
+
+# - name: "Allow IP forward IPv6 II"
+#   ansible.builtin.replace:
+#     path: /etc/ufw/sysctl.conf
+#     regexp: '#net/ipv6/conf/all/forwarding=1'
+#     replace: 'net/ipv6/conf/all/forwarding=1'
+
+- name: Insert port-forwading rule in /etc/ufw/before.rules
+  ansible.builtin.blockinfile:
+    path: /etc/ufw/before.rules
+    insertbefore: BOF
+    block: |
+      *nat
+      :PREROUTING ACCEPT [0:0]
+      -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8000
+      -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 4430
+      COMMIT
 
 - name: Enable UFW
   community.general.ufw:
