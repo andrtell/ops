@@ -6,7 +6,7 @@
     - common_packages
     - common_users
     - common_files
-    - firewall
+    - firewall_registry
     - ssh
     - registry_service
 

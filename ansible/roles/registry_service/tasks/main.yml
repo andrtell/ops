@@ -25,7 +25,7 @@
 - name: Copy /auth/htpasswd
   ansible.builtin.copy:
     src: htpasswd
-    dest: /home/worker/
+    dest: /home/worker/auth/
     owner: worker
     group: worker
     mode: 0640

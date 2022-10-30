@@ -19,7 +19,7 @@ ExecStart=/usr/bin/podman run \
   --name service \
   -d \
   -p 4430:5000 \
-  -v '/home/worker/htpasswd:/auth/htpasswd:ro' \
+  -v '/home/worker/auth/htpasswd:/auth/htpasswd:ro' \
   -v '/mnt/registry:/var/lib/registry' \
   -e "REGISTRY_AUTH=htpasswd" \
   -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \

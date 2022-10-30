@@ -1,7 +1,14 @@
 ---
-- name: Setup firewall
-  hosts: builder
+- name: Setup service firewall
+  hosts: web builder
   remote_user: root
 
   roles:
     - firewall
+
+- name: Setup registry firewall
+  hosts: registry
+  remote_user: root
+
+  roles:
+    - firewall_registry
