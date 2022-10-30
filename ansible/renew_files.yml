@@ -4,5 +4,6 @@
   remote_user: root
   vars:
     skip_reboot: true
+
   roles:
     - common_files

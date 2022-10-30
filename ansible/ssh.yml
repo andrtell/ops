@@ -1,7 +1,0 @@
----
-- name: Setup firewall
-  hosts: builder
-  remote_user: root
-
-  roles:
-    - ssh

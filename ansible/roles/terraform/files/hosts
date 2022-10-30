@@ -1,5 +1,5 @@
 127.0.0.1   localhost.localdomain	localhost
 ::1         localhost.localdomain	localhost ip6-localhost
-10.110.16.8 web01
+10.110.16.4 web01
 10.110.16.2 registry01
-10.110.16.7 builder01
+10.110.16.5 builder01

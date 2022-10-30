@@ -4,7 +4,7 @@
   remote_user: root
 
   roles:
-    - update_containers
+    - pull_latest
 
 - name: Migrate builder database
   hosts: builder

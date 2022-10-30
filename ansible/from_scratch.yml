@@ -1,0 +1,30 @@
+---
+- name: Install common
+  hosts: builder registry web
+  remote_user: root
+  roles:
+    - common_packages
+    - common_users
+    - common_files
+    - common_ssh
+
+- name: Install registry service
+  hosts: registry
+  remote_user: root
+  roles:
+    - registry_firewall
+    - registry_service
+
+- name: Install builder services
+  hosts: builder
+  remote_user: root
+  roles:
+    - builder_firewall
+    - builder_service
+
+- name: Install web services
+  hosts: web
+  remote_user: root
+  roles:
+    - web_firewall
+    - web_service
