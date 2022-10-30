@@ -19,17 +19,17 @@ help() {
       remote    <command> [<arg> ...]
 
     commands:
-      root      <host-alias>    ssh into ansible host as root
+      root      <host-alias>    ssh into the host as user root
 
-      worker    <host-alias>    ssh into ansible host as worker
+      worker    <host-alias>    ssh into the host as user worker
 
-      container <host-alias>    ssh into ansible host container
+      container <host-alias>    ssh into the container at the host
 
-      iex       <host-alias>    start iex prompt at host 
+      iex       <host-alias>    start iex prompt in the container at the host 
 
-      migrate   <host-alias>    run db migrations on host
+      migrate   <host-alias>    run db-migrations in the container at the host
 
-      help                     print help
+      help                      print help
 _EOF
 }
 
