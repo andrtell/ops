@@ -3,16 +3,16 @@
   hosts: registry
   remote_user: root
   roles:
-    - registry-service
+    - registry_service
 
 - name: Install builder service
   hosts: builder
   remote_user: root
   roles:
-    - builder-service
+    - builder_service
 
 - name: Install web service
   hosts: web
   remote_user: root
   roles:
-    - web-service
+    - web_service

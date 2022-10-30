@@ -5,5 +5,5 @@
   vars:
     skip_reboot: true
   roles:
-    - common-files
-    - worker-files
+    - common_files
+    - worker_files

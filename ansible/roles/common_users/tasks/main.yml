@@ -1,35 +1,36 @@
 ---
 - name: Create container group
-  group:
+  ansible.builtin.group:
     name: container
-    gid: '{{ container_uid }}'
+    gid: "{{ container_uid }}"
     state: present
 
 - name: Create worker group
-  group:
+  ansible.builtin.group:
     name: worker
-    gid: '{{ worker_uid }}'
+    gid: "{{ worker_uid }}"
     state: present
 
 - name: Create user container
-  user:
+  ansible.builtin.user:
     name: container
-    uid: '{{ container_uid }}'
+    uid: "{{ container_uid }}"
     shell: /bin/false
     home: /dev/null
     groups:
       - container
-    password: '!'
+    password: "!"
 
 - name: Create user worker
-  user:
+  ansible.builtin.user:
     name: worker
-    uid: '{{ worker_uid }}'
+    uid: "{{ worker_uid }}"
     shell: /bin/bash
     groups:
       - worker
       - container
-    password: '!'
+    password: "!"
 
-- name: loginctl enable-linger worker
-  command: loginctl enable-linger worker
+- name: Loginctl enable-linger worker
+  changed_when: false
+  ansible.builtin.command: loginctl enable-linger worker

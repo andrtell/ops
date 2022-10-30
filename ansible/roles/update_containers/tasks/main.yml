@@ -1,0 +1,12 @@
+---
+- name: Podman auto-update
+  become: true
+  become_user: worker
+  changed_when: false
+  ansible.builtin.command: podman auto-update
+
+- name: Podman image prune
+  become: true
+  become_user: worker
+  changed_when: false
+  ansible.builtin.command: podman image prune -af

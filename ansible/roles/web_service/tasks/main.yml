@@ -1,26 +1,28 @@
 ---
 - name: User service dir
-  file: 
+  ansible.builtin.file:
     path: /home/worker/.config/systemd/user
     state: directory
     owner: worker
     group: worker
+    mode: 0750
 
 - name: Copy web service file
-  template:
+  ansible.builtin.template:
     src: web.service.j2
     dest: /home/worker/.config/systemd/user/web.service
     owner: worker
     group: worker
+    mode: 0640
 
 - name: Start & enable web service
   become: true
   become_user: worker
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     enabled: true
     name: web
     scope: user
     state: restarted
   environment:
-    XDG_RUNTIME_DIR: '/run/user/{{ worker_uid }}'
+    XDG_RUNTIME_DIR: /run/user/{{ worker_uid }}

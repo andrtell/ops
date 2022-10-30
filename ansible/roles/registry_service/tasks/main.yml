@@ -1,8 +1,9 @@
 ---
 - name: Mount point /mnt/registry
-  file:
+  ansible.builtin.file:
     path: /mnt/registry
     state: directory
+    mode: 0755
 
 - name: Do mount volume /mnt/registry
   ansible.posix.mount:
@@ -14,38 +15,40 @@
     state: mounted
 
 - name: Chown /mnt/registry
-  command: 'chown -R worker:worker /mnt/registry'
+  ansible.builtin.command: chown -R worker:worker /mnt/registry
 
 - name: Copy /auth/htpasswd
-  copy:
+  ansible.builtin.copy:
     src: htpasswd
     dest: /auth/
     owner: root
     group: worker
-    mode: '0440'
+    mode: 0440
 
 - name: User service dir
-  file:
+  ansible.builtin.file:
     path: /home/worker/.config/systemd/user
     state: directory
     owner: worker
     group: worker
+    mode: 0750
 
 - name: Copy registry service file
-  template:
+  ansible.builtin.template:
     src: registry.service.j2
     dest: /home/worker/.config/systemd/user/registry.service
     owner: worker
     group: worker
+    mode: 0640
 
 - name: Start & enable web service
   become: true
   become_user: worker
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     enabled: true
     name: registry
     scope: user
     state: restarted
   environment:
-    XDG_RUNTIME_DIR: '/run/user/{{ worker_uid }}'
+    XDG_RUNTIME_DIR: /run/user/{{ worker_uid }}

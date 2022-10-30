@@ -1,0 +1,16 @@
+---
+- name: Update packages
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Upgrade packages
+  ansible.builtin.apt:
+    upgrade: true
+  notify: Reboot
+
+- name: Install required packages
+  ansible.builtin.apt:
+    name:
+      - podman
+      - unattended-upgrades
+    state: latest
