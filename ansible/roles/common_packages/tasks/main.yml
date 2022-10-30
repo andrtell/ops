@@ -13,4 +13,4 @@
     name:
       - podman
       - unattended-upgrades
-    state: latest
+    state: present

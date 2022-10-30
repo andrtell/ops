@@ -1,6 +1,6 @@
 ---
 - name: Copy /etc/hosts
-  copy:
+  ansible.builtin.copy:
     src: hosts
     dest: /etc/hosts
     mode: "0644"

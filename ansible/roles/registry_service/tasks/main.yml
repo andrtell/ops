@@ -14,8 +14,14 @@
     boot: true
     state: mounted
 
-- name: Chown /mnt/registry
-  ansible.builtin.command: chown -R worker:worker /mnt/registry
+- name: Set ownership of files in volume 
+  ansible.builtin.file:
+    path: /mnt/registry
+    state: directory
+    recurse: true
+    owner: worker
+    group: worker
+    mode: 0644
 
 - name: Copy /auth/htpasswd
   ansible.builtin.copy:
