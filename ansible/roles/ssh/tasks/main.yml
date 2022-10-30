@@ -1,0 +1,39 @@
+---
+- name: Add AllowUsers to /etc/ssh/sshd_config
+  blockinfile:
+    path: /etc/ssh/sshd_config
+    insertafter: EOF
+    block: |
+      AllowUsers root worker@{{ private_vpc_ip_range }}
+
+- name: /home/worker/.ssh
+  file:
+    path: /home/worker/.ssh
+    state: directory
+    owner: worker
+    group: worker
+
+- name: Copy /home/worker/.ssh/id_ed25519
+  copy:
+    src: id_ed25519-worker
+    dest: /home/worker/.ssh/id_ed25519
+    owner: worker
+    group: worker
+    mode: '0600'
+
+- name: Copy /home/worker/.ssh/id_ed25519.pub
+  copy:
+    src: id_ed25519-worker.pub
+    dest: /home/worker/.ssh/id_ed25519.pub
+    owner: worker
+    group: worker
+
+- name: Copy /home/worker/.ssh/authorized_keys
+  copy:
+    src: id_ed25519-worker.pub
+    dest: /home/worker/.ssh/authorized_keys
+    owner: worker
+    group: worker
+
+- name: Reboot
+  reboot:

@@ -1,6 +1,10 @@
 ---
 - name: Podman auto-update
+  become: true
+  become_user: worker
   command: 'podman auto-update'
 
 - name: Podman image prune 
+  become: true
+  become_user: worker
   command: 'podman image prune -af'

@@ -6,7 +6,9 @@
     - common-packages
     - user-worker
     - common-files
+    - worker-files
     - firewall
+    - ssh
 
 - name: Install registry service
   hosts: registry
@@ -25,3 +27,4 @@
   remote_user: root
   roles:
     - web-service
+

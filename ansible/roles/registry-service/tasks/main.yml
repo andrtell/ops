@@ -39,7 +39,8 @@
     group: worker
 
 - name: Start & enable web service
-  remote_user: worker
+  become: true
+  become_user: worker
   systemd:
     daemon_reload: true
     enabled: true

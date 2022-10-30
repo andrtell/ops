@@ -11,22 +11,6 @@
     owner: worker
     group: worker
 
-- name: Copy remote ssh authorized-keys from root to worker
-  copy:
-    remote_src: true
-    src: /root/.ssh/authorized_keys
-    dest: /home/worker/.ssh/
-    owner: worker
-    group: worker
-
-- name: Copy script ectl
-  copy:
-    src: ectl
-    dest: /home/worker/
-    owner: worker
-    group: worker
-    mode: '0755'
-
 - name: Copy /cert/fullchain.pem
   copy:
     src: fullchain.pem

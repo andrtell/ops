@@ -1,15 +1,18 @@
 ---
 - name: Update containers
   hosts: web builder
-  remote_user: worker
+  remote_user: root
+
   roles:
     - update-containers
 
 - name: Migrate databases
   hosts: builder
-  remote_user: worker
+  remote_user: root
+  become: true
+  become_user: worker
 
   tasks:
     - name: Migrate builder_prod
-      command: ./ectl migrate
+      command: /home/worker/ectl migrate
 
