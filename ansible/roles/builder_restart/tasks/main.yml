@@ -1,0 +1,11 @@
+---
+- name: Restart builder service
+  become: true
+  become_user: worker
+  ansible.builtin.systemd:
+    enabled: true
+    name: builder
+    scope: user
+    state: restarted
+  environment:
+    XDG_RUNTIME_DIR: /run/user/{{ worker_uid }}

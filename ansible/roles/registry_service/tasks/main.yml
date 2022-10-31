@@ -46,7 +46,7 @@
     group: worker
     mode: 0400
 
-- name: Start & enable web service
+- name: Start & enable registry service
   become: true
   become_user: worker
   ansible.builtin.systemd:

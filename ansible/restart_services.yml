@@ -1,0 +1,21 @@
+---
+- name: Restart registry service
+  hosts: registry
+  remote_user: root
+
+  roles:
+    - registry_restart
+
+- name: Restart builder service
+  hosts: builder
+  remote_user: root
+
+  roles:
+    - builder_restart
+
+- name: Restart web service
+  hosts: web
+  remote_user: root
+
+  roles:
+    - web_restart
