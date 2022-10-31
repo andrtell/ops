@@ -1,3 +1,5 @@
 ---
 worker_uid: 1000
 container_uid: 100999
+https_port: 4343
+http_port: 8080

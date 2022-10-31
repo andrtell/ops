@@ -3,7 +3,7 @@
   ansible.builtin.copy:
     src: config.json
     dest: /root/.docker/
-    mode: 0640
+    mode: 0400
 
 - name: Copy /home/worker/.docker/config.json
   ansible.builtin.copy:
@@ -11,7 +11,7 @@
     dest: /home/worker/.docker/
     owner: worker
     group: worker
-    mode: 0440
+    mode: 0400
 
 - name: Copy /cert/fullchain.pem
   ansible.builtin.copy:
@@ -33,7 +33,7 @@
   ansible.builtin.file:
     path: /home/worker/cert
     state: directory
-    mode: 0755
+    mode: 0550
 
 - name: Copy script ectl
   ansible.builtin.copy:
@@ -41,4 +41,4 @@
     dest: /home/worker/
     owner: worker
     group: worker
-    mode: 0740
+    mode: 0700

@@ -5,7 +5,7 @@
     state: directory
     owner: worker
     group: worker
-    mode: 0750
+    mode: 0700
 
 - name: Copy builder service file
   ansible.builtin.template:
@@ -13,7 +13,7 @@
     dest: /home/worker/.config/systemd/user/builder.service
     owner: worker
     group: worker
-    mode: 0640
+    mode: 0400
 
 - name: Start & enable builder service
   become: true

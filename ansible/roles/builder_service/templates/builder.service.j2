@@ -18,13 +18,15 @@ ExecStart=/usr/bin/podman run \
   --replace \
   --name service \
   -d \
-  -p 4430:4430 \
-  -p 8000:8000 \
+  -p {{ https_port }}:{{ https_port }} \
+  -p {{ http_port }}:{{ http_port }} \
   -p {{ ansible_eth1.ipv4.address }}:4369:4369 \
   -p {{ ansible_eth1.ipv4.address }}:9000-9010:9000-9010 \
   --label io.containers.autoupdate=registry \
   -v /home/worker/cert/fullchain.pem:/cert/fullchain.pem:ro \
   -v /home/worker/cert/privkey.pem:/cert/privkey.pem:ro \
+  -e 'HTTPS_PORT={{ https_port }}' \
+  -e 'HTTP_PORT={{ http_port }}' \
   -e 'SSL_KEY_PATH=/cert/privkey.pem' \
   -e 'SSL_CERT_PATH=/cert/fullchain.pem' \
   -e 'LOGFLARE_API_KEY={{ builder_logflare_api_key }}' \

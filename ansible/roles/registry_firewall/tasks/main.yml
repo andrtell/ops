@@ -4,15 +4,10 @@
     rule: allow
     port: ssh
 
-# - name: Allow access to HTTPS
-#   community.general.ufw:
-#     rule: allow
-#     port: https
-
-- name: Allow access to port 4430
+- name: Allow access to alt. HTTPS port
   community.general.ufw:
     rule: allow
-    port: 4430
+    port: '{{ https_port }}'
 
 - name: Allow all traffic on private network
   community.general.ufw:
@@ -26,7 +21,7 @@
     block: |
       *nat
       :PREROUTING ACCEPT [0:0]
-      -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 4430
+      -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port {{ https_port }}
       COMMIT
 
 - name: Enable UFW

@@ -1,4 +1,3 @@
 ---
 web_container_registry: registry.tell.nu
 web_container_tag: tell.nu
-worker_uid: 1000

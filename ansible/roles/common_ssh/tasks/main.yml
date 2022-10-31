@@ -12,7 +12,7 @@
     state: directory
     owner: worker
     group: worker
-    mode: 0750
+    mode: 0500
 
 - name: Copy /home/worker/.ssh/id_ed25519
   ansible.builtin.copy:
@@ -20,7 +20,7 @@
     dest: /home/worker/.ssh/id_ed25519
     owner: worker
     group: worker
-    mode: 0600
+    mode: 0400
 
 - name: Copy /home/worker/.ssh/id_ed25519.pub
   ansible.builtin.copy:
@@ -28,7 +28,7 @@
     dest: /home/worker/.ssh/id_ed25519.pub
     owner: worker
     group: worker
-    mode: 0640
+    mode: 0400
 
 - name: Copy /home/worker/.ssh/authorized_keys
   ansible.builtin.copy:
@@ -36,4 +36,4 @@
     dest: /home/worker/.ssh/authorized_keys
     owner: worker
     group: worker
-    mode: 0640
+    mode: 0600

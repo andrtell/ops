@@ -18,7 +18,7 @@ ExecStart=/usr/bin/podman run \
   --replace \
   --name service \
   -d \
-  -p 4430:5000 \
+  -p {{ https_port }}:5000 \
   -v '/home/worker/auth/htpasswd:/auth/htpasswd:ro' \
   -v '/mnt/registry:/var/lib/registry' \
   -e "REGISTRY_AUTH=htpasswd" \

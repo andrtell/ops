@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: /mnt/registry
     state: directory
-    mode: 0755
+    mode: 0750
 
 - name: Do mount volume /mnt/registry
   ansible.posix.mount:
@@ -28,7 +28,7 @@
     dest: /home/worker/auth/
     owner: worker
     group: worker
-    mode: 0640
+    mode: 0440
 
 - name: User service dir
   ansible.builtin.file:
@@ -36,7 +36,7 @@
     state: directory
     owner: worker
     group: worker
-    mode: 0750
+    mode: 0700
 
 - name: Copy registry service file
   ansible.builtin.template:
@@ -44,7 +44,7 @@
     dest: /home/worker/.config/systemd/user/registry.service
     owner: worker
     group: worker
-    mode: 0640
+    mode: 0400
 
 - name: Start & enable web service
   become: true
