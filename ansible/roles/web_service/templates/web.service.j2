@@ -20,7 +20,7 @@ ExecStart=/usr/bin/podman run \
   --name service \
   -d \
   -p {{ https_port }}:{{ https_port }} \
-  -p {{ http_port }}:{{ https_port }} \
+  -p {{ http_port }}:{{ http_port }} \
   -p {{ ansible_eth1.ipv4.address }}:4369:4369 \
   -p {{ ansible_eth1.ipv4.address }}:9000-9010:9000-9010 \
   --label io.containers.autoupdate=registry \
