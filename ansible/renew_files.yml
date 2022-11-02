@@ -1,5 +1,5 @@
 ---
-- name: Update files
+- name: Renew files
   hosts: web builder registry
   remote_user: root
   vars:

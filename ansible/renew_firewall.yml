@@ -1,0 +1,7 @@
+---
+- name: Renew firewall
+  hosts: web
+  remote_user: root
+
+  roles:
+    - web_firewall

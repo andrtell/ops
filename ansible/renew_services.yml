@@ -1,17 +1,17 @@
 ---
-- name: Update registry service
+- name: Renew registry service
   hosts: registry
   remote_user: root
   roles:
     - registry_service
 
-- name: Update builder service
+- name: Renew builder service
   hosts: builder
   remote_user: root
   roles:
     - builder_service
 
-- name: Update web service
+- name: Renew web service
   hosts: web
   remote_user: root
   roles:

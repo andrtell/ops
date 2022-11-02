@@ -4,6 +4,11 @@
     rule: allow
     port: ssh
 
+- name: Allow access to HTTPS
+  community.general.ufw:
+    rule: allow
+    port: https
+
 - name: Allow access to alt. HTTPS port
   community.general.ufw:
     rule: allow

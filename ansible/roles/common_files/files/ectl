@@ -24,6 +24,8 @@ help() {
       
       migrate     run migrations
 
+      seed        seed database
+
       help        print help
 _EOF
 }
@@ -39,6 +41,9 @@ case "$1" in
         ;;
     migrate)
         podman exec -it service bin/migrate
+        ;;
+    seed)
+        podman exec -it service bin/seed
         ;;
     help)
         help
