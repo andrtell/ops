@@ -3,3 +3,4 @@ worker_uid: 1000
 container_uid: 100999
 https_port: 4343
 http_port: 8080
+private_vpc_ip_range: 10.110.16.0/20
