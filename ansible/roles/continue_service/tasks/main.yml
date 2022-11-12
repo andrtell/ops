@@ -7,6 +7,14 @@
     group: worker
     mode: 0700
 
+- name: Containers dir
+  ansible.builtin.file:
+    path: /home/worker/containers
+    state: directory
+    owner: worker
+    group: container
+    mode: 0770
+
 - name: Copy continue service file
   ansible.builtin.template:
     src: continue.service.j2

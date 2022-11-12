@@ -26,7 +26,9 @@ ExecStart=/usr/bin/podman run \
   -v /home/worker/cert/fullchain.pem:/cert/fullchain.pem:ro \
   -v /home/worker/cert/privkey.pem:/cert/privkey.pem:ro \
   -v /home/worker/.docker/config.json:/home/container/.docker/config.json \
+  -v /home/worker/containers:/home/container/.local/share/containers \
   --device /dev/fuse \
+  --privileged \
   -e 'HTTPS_PORT={{ https_port }}' \
   -e 'HTTP_PORT={{ http_port }}' \
   -e 'SSL_KEY_PATH=/cert/privkey.pem' \
