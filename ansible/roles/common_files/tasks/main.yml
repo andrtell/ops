@@ -10,8 +10,8 @@
     src: config.json
     dest: /home/worker/.docker/
     owner: worker
-    group: worker
-    mode: 0400
+    group: container
+    mode: 0440
 
 - name: Copy /cert/fullchain.pem
   ansible.builtin.copy:
