@@ -35,6 +35,7 @@ ExecStart=/usr/bin/podman run \
   -e 'LOGFLARE_SOURCE_ID={{ continue_logflare_source_id }}' \
   -e 'DATABASE_URL={{ continue_database_url }}' \
   -e 'SECRET_KEY_BASE={{ continue_phx_secret }}' \
+  -e 'GITHUB_WEBHOOK_SECRET={{ continue_github_webhook_secret }}' \
   -e 'RELEASE_COOKIE={{ continue_release_cookie }}' \
   -e 'RELEASE_NAME=node@{{ inventory_hostname }}' \
   {{ continue_container_registry }}/{{ continue_container_tag }}
