@@ -1,6 +1,6 @@
 ---
 - name: Install common
-  hosts: builder registry web
+  hosts: continue registry web
   remote_user: root
   roles:
     - common_packages
@@ -15,12 +15,12 @@
     - registry_firewall
     - registry_service
 
-- name: Install builder services
-  hosts: builder
+- name: Install continue services
+  hosts: continue
   remote_user: root
   roles:
-    - builder_firewall
-    - builder_service
+    - continue_firewall
+    - continue_service
 
 - name: Install web services
   hosts: web

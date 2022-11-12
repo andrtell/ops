@@ -29,13 +29,13 @@ ExecStart=/usr/bin/podman run \
   -e 'HTTP_PORT={{ http_port }}' \
   -e 'SSL_KEY_PATH=/cert/privkey.pem' \
   -e 'SSL_CERT_PATH=/cert/fullchain.pem' \
-  -e 'LOGFLARE_API_KEY={{ builder_logflare_api_key }}' \
-  -e 'LOGFLARE_SOURCE_ID={{ builder_logflare_source_id }}' \
-  -e 'DATABASE_URL={{ database_url }}' \
-  -e 'SECRET_KEY_BASE={{ builder_phx_secret }}' \
-  -e 'RELEASE_COOKIE={{ builder_release_cookie }}' \
+  -e 'LOGFLARE_API_KEY={{ continue_logflare_api_key }}' \
+  -e 'LOGFLARE_SOURCE_ID={{ continue_logflare_source_id }}' \
+  -e 'DATABASE_URL={{ continue_database_url }}' \
+  -e 'SECRET_KEY_BASE={{ continue_phx_secret }}' \
+  -e 'RELEASE_COOKIE={{ continue_release_cookie }}' \
   -e 'RELEASE_NAME=node@{{ inventory_hostname }}' \
-  {{ builder_container_registry }}/{{ builder_container_tag }}
+  {{ continue_container_registry }}/{{ continue_container_tag }}
 ExecStop=/usr/bin/podman stop --ignore --cidfile=%t/%n.ctr-id
 ExecStopPost=/usr/bin/podman rm -f --ignore --cidfile=%t/%n.ctr-id
 Type=notify

@@ -7,27 +7,27 @@
     group: worker
     mode: 0700
 
-- name: Copy builder service file
+- name: Copy continue service file
   ansible.builtin.template:
-    src: builder.service.j2
-    dest: /home/worker/.config/systemd/user/builder.service
+    src: continue.service.j2
+    dest: /home/worker/.config/systemd/user/continue.service
     owner: worker
     group: worker
     mode: 0400
 
-- name: Start & enable builder service
+- name: Start & enable continue service
   become: true
   become_user: worker
   ansible.builtin.systemd:
     daemon_reload: true
     enabled: true
-    name: builder
+    name: continue
     scope: user
     state: restarted
   environment:
     XDG_RUNTIME_DIR: /run/user/{{ worker_uid }}
 
-- name: Migrate builder database
+- name: Migrate continue database
   become: true
   become_user: worker
   changed_when: false

@@ -5,11 +5,11 @@
   roles:
     - registry_service
 
-- name: Renew builder service
-  hosts: builder
+- name: Renew continue service
+  hosts: continue
   remote_user: root
   roles:
-    - builder_service
+    - continue_service
 
 - name: Renew web service
   hosts: web

@@ -2,4 +2,4 @@
 ::1         localhost.localdomain	localhost ip6-localhost
 10.110.16.3 web01
 10.110.16.2 registry01
-10.110.16.4 builder01
+10.110.16.4 continue01

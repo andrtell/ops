@@ -1,0 +1,3 @@
+---
+continue_container_registry: registry.tell.nu
+continue_container_tag: continue:latest

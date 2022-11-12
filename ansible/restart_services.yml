@@ -6,12 +6,12 @@
   roles:
     - registry_restart
 
-- name: Restart builder service
-  hosts: builder
+- name: Restart continue service
+  hosts: continue
   remote_user: root
 
   roles:
-    - builder_restart
+    - continue_restart
 
 - name: Restart web service
   hosts: web

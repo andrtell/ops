@@ -1,6 +1,6 @@
 ---
 - name: Renew files
-  hosts: web builder registry
+  hosts: web continue registry
   remote_user: root
   vars:
     skip_reboot: true

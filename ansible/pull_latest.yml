@@ -1,17 +1,17 @@
 ---
 - name: Update containers
-  hosts: web builder
+  hosts: web continue
   remote_user: root
 
   roles:
     - pull_latest
 
-- name: Migrate builder database
-  hosts: builder
+- name: Migrate continue database
+  hosts: continue
   remote_user: root
   become: true
   become_user: worker
 
   tasks:
-    - name: Migrate builder_prod
+    - name: Migrate continue_prod
       ansible.builtin.command: /home/worker/ectl migrate

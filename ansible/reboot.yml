@@ -1,6 +1,6 @@
 ---
 - name: Reboot host
-  hosts: registry builder web
+  hosts: registry continue web
   remote_user: root
 
   tasks:

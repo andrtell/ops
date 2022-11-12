@@ -1,4 +1,4 @@
 #!/bin/env bash
 ansible -m ping -u root registry
-ansible -m ping -u root builder
+ansible -m ping -u root continue
 ansible -m ping -u root web

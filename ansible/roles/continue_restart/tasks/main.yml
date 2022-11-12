@@ -1,10 +1,10 @@
 ---
-- name: Restart builder service
+- name: Restart continue service
   become: true
   become_user: worker
   ansible.builtin.systemd:
     enabled: true
-    name: builder
+    name: continue
     scope: user
     state: restarted
   environment:

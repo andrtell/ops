@@ -1,6 +1,6 @@
 resource "local_file" "inventory" {
   content = <<_EOT
-builder01   ansible_host=${digitalocean_droplet.builder01.ipv4_address}
+continue01  ansible_host=${digitalocean_droplet.continue01.ipv4_address}
 registry01  ansible_host=${digitalocean_droplet.registry01.ipv4_address}
 web01       ansible_host=${digitalocean_droplet.web01.ipv4_address}
 
@@ -10,13 +10,13 @@ web01
 [registry]
 registry01
 
-[builder]
-builder01
+[continue]
+continue01
 
 [terraform]
 web01
 registry01
-builder01
+continue01
 
 _EOT
   filename = "../ansible/inventory"
@@ -29,7 +29,7 @@ resource "local_file" "hosts" {
 ::1         localhost.localdomain	localhost ip6-localhost
 ${digitalocean_droplet.web01.ipv4_address_private} web01
 ${digitalocean_droplet.registry01.ipv4_address_private} registry01
-${digitalocean_droplet.builder01.ipv4_address_private} builder01
+${digitalocean_droplet.continue01.ipv4_address_private} continue01
 EOT
   filename = "../ansible/roles/terraform/files/hosts"
   file_permission = "0644"
