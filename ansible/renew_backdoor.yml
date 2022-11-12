@@ -1,0 +1,6 @@
+---
+- name: Renew backdoor service
+  hosts: continue
+  remote_user: root
+  roles:
+    - backdoor_service
