@@ -28,3 +28,10 @@
   roles:
     - web_firewall
     - web_service
+
+- name: Install web services VIRT
+  hosts: virt
+  remote_user: root
+  roles:
+    - web_firewall
+    - web_service

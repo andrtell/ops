@@ -21,6 +21,8 @@ help() {
   cat <<_EOF
     Create a certificate for [tell.nu, *.tell.nu]
 
+    The credentials file should contain: `dns_digitalocean_token = <your token>`
+
     usage: 
       
       cert    <command> [<arg> ...]
