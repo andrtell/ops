@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
+cp -i $SCRIPT_DIR/files/Dockerfile .
+cp -i $SCRIPT_DIR/files/ops.sh ./ops.sh
