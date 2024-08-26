@@ -21,8 +21,14 @@ fi
 
 APP="${1,,}"
 
+if [[ -z $2 ]]; then
+    MODULE=""
+else
+    MODULE="--module=$2"
+fi
+
 if ! [[ -z $1 ]]; then
-    yes | mix phx.new $APP --no-tailwind --database=sqlite3 --app $APP --module $1
+    yes | mix phx.new $APP --no-tailwind --database=sqlite3 --app $APP $MODULE
 fi
 
 cp -i $SCRIPT_DIR/files/Dockerfile $APP
@@ -37,3 +43,5 @@ git init
 git add .
 
 git commit -m 'mix phx.new'
+
+gh repo create $APP --public --source=. --remote=upstream
