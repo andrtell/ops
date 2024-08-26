@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
+
+deps() {
+    if ! type -p $1 &> /dev/null; then
+        echo "'$1' is required to run this script."
+        exit 126
+    fi
+}
+
+deps "gh"
+deps "yes"
+deps "mix"
+
+if ! gh auth status > /dev/null; then
+    if ! $(gh auth login -p ssh --skip-ssh-key); then
+        exit 1
+    fi
+fi
+
+APP="${1,,}"
+
+if ! [[ -z $1 ]]; then
+    yes | mix phx.new $APP --no-tailwind --database=sqlite3 --app $APP --module $1
+fi
+
+cp -i $SCRIPT_DIR/files/Dockerfile $APP
+cp -i $SCRIPT_DIR/files/ops.sh $APP/ops.sh
+
+cd $APP
+
+mix ecto.create
+
+git init
+
+git add .
+
+git commit -m 'mix phx.new'
