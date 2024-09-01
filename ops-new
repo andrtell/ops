@@ -32,7 +32,6 @@ if ! [[ -z $1 ]]; then
 fi
 
 cp -i $SCRIPT_DIR/files/Dockerfile $APP
-cp -i $SCRIPT_DIR/files/ops.sh $APP/ops.sh
 
 cd $APP
 
@@ -44,4 +43,4 @@ git add .
 
 git commit -m 'mix phx.new'
 
-gh repo create $APP --public --source=. --remote=upstream
+cp -i $SCRIPT_DIR/files/ops.sh $APP/ops.sh
